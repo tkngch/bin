@@ -1,0 +1,5 @@
+#!/usr/bin/sh
+
+rm -rf /home/takao/lib/python/__pycache__
+pip install --target /home/takao/lib/python "$1"
+rm -rf /home/takao/lib/python/__pycache__

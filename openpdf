@@ -1,0 +1,11 @@
+#!/bin/sh
+
+EXE=evince
+# evince "$@" 2> /dev/null &
+
+for file in "$@"; do
+    if [[ $file =~ \.pdf$ ]];
+    then echo "Opening" "$file";
+         "$EXE" "$file" 2> /dev/null &
+    fi
+done

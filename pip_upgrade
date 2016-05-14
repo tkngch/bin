@@ -1,0 +1,5 @@
+#!/usr/bin/sh
+
+rm -rf /home/takao/lib/python/__pycache__
+pip install --upgrade --target /home/takao/lib/python "$@"
+rm -rf /home/takao/lib/python/__pycache__

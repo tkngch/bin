@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+
+if [ "$(date +%d)" -lt 8 ] && [ "$(date +%u)" -gt 5 ]; then
+    echo "Running monthly snapshot. "
+    sudo rsnapshot -v monthly
+    echo "Done."
+fi
+
+if [ "$(date +%u)" -gt 5 ]; then
+    echo "Today is a weekend. Running weekly snapshot. ";
+    sudo rsnapshot -v weekly
+    echo "Done."
+fi
+
+# echo "Daily snapshot. "
+# sudo rsnapshot -v daily
+# echo "Done."
