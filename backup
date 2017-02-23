@@ -1,5 +1,7 @@
 #!/usr/bin/sh
 
+# config file is /etc/rsnapshot.conf
+
 
 if [ "$(date +%d)" -lt 8 ] && [ "$(date +%u)" -gt 5 ]; then
     echo "Running monthly snapshot. "
