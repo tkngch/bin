@@ -1,13 +1,8 @@
 #!/bin/sh
 
-# This script creates ./doc directory and populate with Hugo template.
+# This script creates Hugo site at the cwd
 
-if [ -d "./doc" ]; then
-    echo "doc directory already exists. Aborting..."
-    exit
-fi
-
-hugo new site doc
+hugo new site .
 
 cd doc
 git init
@@ -17,7 +12,7 @@ cd themes
 git submodule add https://github.com/tkngch/vienna-minimal
 mkdir vienna-minimal/archetypes
 
-# go back to ./doc
+# go back to the site root
 cd ..
 
 # edit config.toml
