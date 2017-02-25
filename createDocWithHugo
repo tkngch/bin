@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# This script creates ./doc directory and populate with Hugo template.
+
+if [ -d "./doc" ]; then
+    echo "doc directory already exists. Aborting..."
+    exit
+fi
+
+hugo new site doc
+
+cd doc
+git init
+
+# download theme
+cd themes
+git submodule add https://github.com/tkngch/vienna-minimal
+mkdir vienna-minimal/archetypes
+
+# go back to ./doc
+cd ..
+
+# edit config.toml
+echo 'baseurl = "http://localhost"
+languageCode = "en-gb"
+title = "Project Title"
+theme = "vienna-minimal"
+
+# Copyright notice. This is displayer in the footer.
+copyright = "&copy; 2016 Takao Noguchi. Creative Commons Attribution 4.0 International License."
+
+PygmentsCodeFences = true
+pygmentsStyle  = "lovelace"
+
+[author]
+    name = "Takao Noguchi"
+
+[params]
+    # Short subtitle/tagline. This is displayed in the header.
+    subtitle = "Documentation and Note"
+' > config.toml
+
+# create handy scripts
+echo '#/bin/sh
+now=`date +"%Y-%m-%d-%H-%M"`
+filename="${now}.md"
+hugo new post/${filename}
+vim ./content/post/${filename}
+' > addContent.sh
+chmod +x addContent.sh
+
+echo '#/bin/sh
+hugo server -D
+' > startServer.sh
+chmod +x startServer.sh
