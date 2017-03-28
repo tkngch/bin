@@ -42,9 +42,9 @@ echo -e "\033[32mContainer created. Now run the following commands.\033[0m"
 echo -e "\033[32m\tsudo systemd-nspawn --boot --directory=${target}\033[0m"
 echo -e "\033[32m\tLog in as root (no password).\033[0m"
 echo -e "\033[32m\t(from container) passwd\033[0m"
-echo -e "\033[32m\t(from container) mkdir /home/user\033[0m"
-echo -e "\033[32m\t(from container) useradd user\033[0m"
-echo -e "\033[32m\t(from container) passwd user\033[0m"
+echo -e "\033[32m\t(from container) mkdir /home/${USER}\033[0m"
+echo -e "\033[32m\t(from container) useradd ${USER}\033[0m"
+echo -e "\033[32m\t(from container) passwd ${USER}\033[0m"
 echo -e "\033[32m\t(from container) pacman -S [packages]\033[0m"
 
 echo -e "\033[32mThen enable the container on boot (optional).\033[0m"
@@ -53,13 +53,12 @@ echo -e "\033[32m\tsudo systemctl enable systemd-nspawn@${target}.service\033[0m
 echo -e "\033[32m\tsudo systemctl edit --full systemd-nspawn@${target}.service\033[0m"
 
 echo -e "\033[32mAlternatively, start the container.\033[0m"
-echo -e "\033[32m\tsudo systemd-nspawn --boot --tmpfs=/home/user:mode=777 --bind=/tmp/.X11-unix:/tmp/.X11-unix --directory=${target}\033[0m"
+echo -e "\033[32m\tsudo systemd-nspawn --boot --tmpfs=/home/${USER}:mode=777 --bind=/tmp/.X11-unix --bind=/dev/snd --directory=${target}\033[0m"
 
 echo -e "\033[32mYou can start a sandboxed program like below.\033[0m"
-echo -e "\033[32m\tsudo systemd-run --machine=test --uid=user --setenv=DISPLAY=:0.0 /usr/bin/firefox\033[0m"
+echo -e "\033[32m\tsudo systemd-run --machine=${containerName} --uid=${USER} --setenv=DISPLAY=:0.0 /usr/bin/firefox\033[0m"
 
 echo -e "\033[32mDon't forget to run xhost +local: too!\033[0m"
 
 
 # sudo systemd-nspawn --boot --directory=/var/lib/machines/chromium --bind=/tmp/.X11-unix --bind=/dev/snd --bind=/run/user/1000/pulse:/run/user/host/pulse --tmpfs=/home/takao:mode=777 --setenv=PULSE_SERVER=/run/user/host/pulse/native --network-veth
-
