@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# run program in a container (systemd-nspawn)
+
+containerName="min"
+
+if [ $# -eq 0 ]; then
+    echo "Please specify program name."
+    exit 1
+fi
+
+sudo systemd-run --uid=${USER} --setenv=DISPLAY=${DISPLAY} --machine=${containerName} /usr/bin/${1}
