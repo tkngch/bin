@@ -8,7 +8,7 @@ logIP () {
 
     echo "${datetime},${ipaddress}"
     echo "${datetime},${ipaddress}" >> ${logFile}
-    sleep `awk 'BEGIN {print 60 * 60 * 4}'`
+    sleep `awk 'BEGIN {print 60 * 60 * 4}'`  # sleep 4 hours
     logIP
 }
 
