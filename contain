@@ -5,7 +5,7 @@
 containerName="min"
 
 if [ $# -eq 0 ]; then
-    echo "Please specify program name."
+    echo "Please specify a program name."
     exit 1
 fi
 

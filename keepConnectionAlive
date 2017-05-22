@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# If there is no network activity for some time, the network can be
+# disconnected (speaking of university policy...). To keep the connection
+# alive, this script pings public DNSs at certain intervals.
+
+targets=(
+    "8.8.8.8"  # google public dbs a
+    "8.8.4.4"  # google public dbs b
+    "37.235.1.174"  # FreeDNS
+    "37.235.1.177"  # FreeDNS
+    "84.200.69.80"  # "resolver1.dns.watch"  # dns.watch
+    "84.200.70.40"  # "resolver2.dns.watch"  # dns.watch
+)
+
+failureCount=0
+maxFailureCount=10
+
+sendPacket () {
+    # randomly select one target
+    r=`date +"%s"`
+    target=${targets[${r} % ${#targets[@]}]}
+
+    # prepare output
+    status=`date +"%Y/%b/%d %H:%M:%S target=${target}"`
+
+    # ping!
+    ping -c 1 ${target} &> /dev/null
+
+    # was it successful?
+    if [ $? -eq 0 ]
+    then
+        status="${status} Success"
+        failureCount=0
+    else
+        status="${status} Failure"
+        ping -c 1 ${target}
+        ((failureCount+=1))
+    fi
+    echo $status
+
+    # failed recently?
+    if [ ${failureCount} -lt ${maxFailureCount} ]
+    then
+        sleep 30
+        sendPacket
+    else
+        echo "Failed ${maxFailureCount} times in a row. Aborting.."
+    fi
+}
+
+sendPacket
