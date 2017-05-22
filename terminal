@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# URXVT
+# xrdb -merge ~/.Xresources
+# /usr/bin/urxvt 2> /dev/null &
+
+# GNOME-TERMINAL
+gnome-terminal 2> /dev/null &
