@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+while inotifywait -q -r -e close_write ${1}; do make; done
+
+# the above will miss changes performed while inotifywait isn't running (in particular while make is running). the one below doesn't have this defect but it can end up on layers of errors. Say, make encounters an error and pauses, and then a file is changed. The below will run make again, which may stuck in an error. In this way, you may end up in multiple layers of suspended make processes.
+
+# inotifywait -q -m -r -e close_write ${1} |
+# while read -r filename event; do
+#     make
+# done
