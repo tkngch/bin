@@ -1,0 +1,52 @@
+#!/bin/sh
+
+cmd=${*}
+dir_prefix=${1}
+sandboxes_dir=${HOME}/tmp/sandboxes
+# if [ ! -d ${sandbox_dir} ]; then
+#     mkdir -p sandbox_dir
+# fi
+
+sandbox_name=''
+
+chooseName () {
+
+    candidate=${dir_prefix}${1}
+
+    if [ ! -d ${sandboxes_dir}/${candidate} ]; then
+        sandbox_name=${candidate}
+        return 0
+    else
+        chooseName `expr ${1} + 1`
+    fi
+
+}
+
+# sandbox_names=`firejail --list | awk -F '--name=' '{print $2}' | awk '{print $1}'`
+# echo ${sandbox_names}
+
+chooseName 0
+echo "Sandbox name is ${sandbox_name}"
+
+sandbox_dir=${sandboxes_dir}/${sandbox_name}
+mkdir -p ${sandbox_dir}
+
+# --caps.drop=all
+#    Drop all capabilities for the processes running in the sandbox.  This option is recommended for  running  GUI  programs  or  any other  program  that  doesn't  require root privileges.
+
+# --disable-mnt
+#    Disable /mnt, /media, /run/mount and /run/media access.
+
+# --noroot
+#    Install a user namespace with a single user - the current user.  root  user  does  not  exist  in the new namespace.
+
+# --private-tmp
+#    Mount  an  empty  temporary filesystem on top of /tmp directory whitelisting X11 and PulseAudio sockets.
+
+# --quiet
+#    Turn off Firejail's output.
+
+
+firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx --seccomp ${cmd} &> /dev/null
+
+rm -rf ${sandbox_dir}
