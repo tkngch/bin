@@ -1,7 +1,9 @@
 #!/bin/sh
 
 cmd=${*}
-dir_prefix=${1}
+# remove forward slash from the first argument
+dir_prefix=${1##/*/}
+echo ${dir_prefix}
 sandboxes_dir=${HOME}/tmp/sandboxes
 # if [ ! -d ${sandbox_dir} ]; then
 #     mkdir -p sandbox_dir
