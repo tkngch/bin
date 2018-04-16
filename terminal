@@ -5,4 +5,7 @@
 # /usr/bin/urxvt 2> /dev/null &
 
 # GNOME-TERMINAL
-gnome-terminal 2> /dev/null &
+# gnome-terminal 2> /dev/null &
+
+# xfce4
+xfce4-terminal 2> /dev/null &
