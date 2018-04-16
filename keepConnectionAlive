@@ -11,10 +11,12 @@ targets=(
     "37.235.1.177"  # FreeDNS
     "84.200.69.80"  # "resolver1.dns.watch"  # dns.watch
     "84.200.70.40"  # "resolver2.dns.watch"  # dns.watch
+    "198.101.242.72"  # Alternate DNS
+    "23.253.163.53"  # Alternate DNS
 )
 
 failureCount=0
-maxFailureCount=10
+maxFailureCount=10000
 
 sendPacket () {
     # randomly select one target
