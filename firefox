@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sandbox /usr/bin/firefox --no-remote --new-instance

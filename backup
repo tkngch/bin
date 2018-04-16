@@ -2,12 +2,9 @@
 
 # config file is /etc/rsnapshot.conf
 
-
-if [ "$(date +%d)" -lt 8 ] && [ "$(date +%u)" -gt 5 ]; then
-    echo "Running monthly snapshot. "
-    sudo rsnapshot -v monthly
-    echo "Done."
-fi
+echo "Daily snapshot. "
+sudo rsnapshot -v daily
+echo "Done."
 
 if [ "$(date +%u)" -gt 5 ]; then
     echo "Today is a weekend. Running weekly snapshot. ";
@@ -15,6 +12,8 @@ if [ "$(date +%u)" -gt 5 ]; then
     echo "Done."
 fi
 
-# echo "Daily snapshot. "
-# sudo rsnapshot -v daily
-# echo "Done."
+if [ "$(date +%d)" -lt 8 ] && [ "$(date +%u)" -gt 5 ]; then
+    echo "Running monthly snapshot. "
+    sudo rsnapshot -v monthly
+    echo "Done."
+fi

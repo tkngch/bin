@@ -7,5 +7,5 @@
 # GNOME-TERMINAL
 # gnome-terminal 2> /dev/null &
 
-# xfce4
+# xfce4-terminal
 xfce4-terminal 2> /dev/null &
