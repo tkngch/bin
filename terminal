@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # URXVT
-# xrdb -merge ${HOME}/.Xresources
-# /usr/bin/urxvt 2> /dev/null &
+xrdb -merge ${HOME}/.Xresources
+/usr/bin/urxvt 2> /dev/null &
 
 # GNOME-TERMINAL
 # gnome-terminal 2> /dev/null &
 
 # xfce4-terminal
-xfce4-terminal 2> /dev/null &
+# xfce4-terminal 2> /dev/null &
