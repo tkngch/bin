@@ -3,7 +3,6 @@
 cmd=${*}
 # remove forward slash from the first argument
 dir_prefix=${1##/*/}
-echo ${dir_prefix}
 sandboxes_dir=${HOME}/tmp/sandboxes
 # if [ ! -d ${sandbox_dir} ]; then
 #     mkdir -p sandbox_dir
@@ -28,10 +27,12 @@ chooseName () {
 # echo ${sandbox_names}
 
 chooseName 0
-echo "Sandbox name is ${sandbox_name}"
-
 sandbox_dir=${sandboxes_dir}/${sandbox_name}
 mkdir -p ${sandbox_dir}
+
+echo "Running ${dir_prefix}"
+echo "Sandbox name is ${sandbox_name}"
+echo ""
 
 # --caps.drop=all
 #    Drop all capabilities for the processes running in the sandbox.  This option is recommended for  running  GUI  programs  or  any other  program  that  doesn't  require root privileges.
@@ -48,7 +49,6 @@ mkdir -p ${sandbox_dir}
 # --quiet
 #    Turn off Firejail's output.
 
-
-firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx --seccomp ${cmd} &> /dev/null
+firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx --seccomp --protocol=unix,inet,inet6,netlink ${cmd} 2> /dev/null
 
 rm -rf ${sandbox_dir}
