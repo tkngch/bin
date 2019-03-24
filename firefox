@@ -1,3 +1,4 @@
 #!/bin/sh
+# Open Firefox inside the sandbox.
 
-sandbox /usr/bin/firefox --no-remote --new-instance
+sandbox /usr/bin/firefox --no-remote --new-instance 2> /dev/null
