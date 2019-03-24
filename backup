@@ -45,7 +45,7 @@
 # --progress
 #     This  option  tells  rsync  to print information showing the progress of the transfer.
 
-rsync -a --delete --exclude="/backup" --exclude="/mnt" --exclude="/tmp" --exclude="/vbox" --exclude="/var/software" --exclude="/.cache" --exclude="/.local" --exclude="**/__pycache__" --exclude="**.pyc" --progress ${HOME} ${HOME}/backup/
+rsync -a --delete --exclude="/backup" --exclude="/mnt" --exclude="/tmp" --exclude="/vbox" --exclude="/var/software" --exclude="/.cache" --exclude="/.local" --exclude="**/__pycache__" --exclude="**.pyc" --progress ${HOME}/ ${HOME}/backup/
 
 
 # # config file is /etc/rsnapshot.conf
