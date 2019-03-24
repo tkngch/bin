@@ -49,6 +49,8 @@ echo ""
 # --quiet
 #    Turn off Firejail's output.
 
-firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx --seccomp --protocol=unix,inet,inet6,netlink ${cmd} 2> /dev/null
+firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet \
+    --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx \
+    --seccomp --protocol=unix,inet,inet6,netlink ${cmd}
 
-rm -rf ${sandbox_dir}
+trap "rm -rf ${sandbox_dir}" EXIT
