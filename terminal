@@ -6,9 +6,6 @@
 
 if [ -L ${HOME}/bin/st ]; then
     # suckless simple terminal
-    export GTK_IM_MODULE=fcitx
-    export QT_IM_MODULE=fcitx
-    export XMODIFIERS=@im=fcitx
     ${HOME}/bin/st 2> /dev/null &
 else
     # URXVT
