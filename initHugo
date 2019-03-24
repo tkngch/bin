@@ -4,8 +4,16 @@
 
 hugo new site .
 
-cd doc
-git init
+if git rev-parse --git-dir > /dev/null 2>&1; then
+    # This is a valid git repository (but the current working directory may not
+    # be the top level.  Check the output of the git rev-parse command if you
+    # care)
+    :  # pass
+else
+    echo "Please create a git repo first."
+    exit
+fi
+
 
 # download theme
 cd themes
@@ -39,8 +47,8 @@ pygmentsStyle  = "lovelace"
 echo '#/bin/sh
 now=`date +"%Y-%m-%d-%H-%M"`
 filename="${now}.md"
-hugo new post/${filename}
-vim ./content/post/${filename}
+hugo new ${filename}
+vim ./content/${filename}
 ' > addContent.sh
 chmod +x addContent.sh
 
