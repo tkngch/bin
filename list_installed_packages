@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+# List the installed packages.
+#
+# You can use this script to reinstall the packages. For example,
+#   list_installed_packages > /tmp/packages
+#   pacman -Sy `cat /tmp/packages`
+
+/usr/bin/pacman -Qet | /usr/bin/awk '{print $1}'
