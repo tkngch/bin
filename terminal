@@ -1,8 +1,13 @@
 #!/bin/sh
 
-# URXVT
-xrdb -merge ${HOME}/.Xresources
-/usr/bin/urxvt 2> /dev/null &
+if [ -x ${HOME}/bin/st ]; then
+    # suckless simple terminal
+    ${HOME}/bin/st 2> /dev/null &
+else
+    # URXVT
+    xrdb -merge ${HOME}/.Xresources
+    /usr/bin/urxvt 2> /dev/null &
+fi
 
 # GNOME-TERMINAL
 # gnome-terminal 2> /dev/null &
