@@ -1,7 +1,14 @@
 #!/bin/sh
+# Open terminal emulator.
+#
+# If a symlink "st" is in ${HOME}/bin, this "st" is executed.
+# Otherwise, /usr/bin/urxvt is called.
 
-if [ -x ${HOME}/bin/st ]; then
+if [ -L ${HOME}/bin/st ]; then
     # suckless simple terminal
+    export GTK_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
     ${HOME}/bin/st 2> /dev/null &
 else
     # URXVT
