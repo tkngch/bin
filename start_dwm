@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true
+do
+    ${HOME}/bin/dwm 2> ${HOME}/.dwm.log
+done
