@@ -30,6 +30,6 @@ print_datetime() {
 
 while true
 do
-    xsetroot -name "$(print_fcitx_status)$(print_network_device)$(print_battery_status) $(print_datetime)"
+    xsetroot -name " $(print_fcitx_status)$(print_network_device)$(print_battery_status) $(print_datetime)"
     sleep 0.5
 done
