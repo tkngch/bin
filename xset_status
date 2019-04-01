@@ -9,7 +9,8 @@
 
 print_network_device() {
     # print the connected device type.
-    nmcli device | awk '{if ($3 == "connected") { print $2" " }}'
+    # when multiple devices are connected, the device names are separated with ORS.
+    nmcli device | awk 'BEGIN { ORS = "" } {if ($3 == "connected") { print $2" " }}'
 }
 
 print_fcitx_status() {
