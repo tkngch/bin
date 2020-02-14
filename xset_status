@@ -9,28 +9,36 @@
 
 print_network_device() {
     # print the connected device type.
+    # show only the default, even when multiple devices are connected.
+    dev=$(ip route | grep default | sed -e 's/^.*dev //' -e 's/ .*//')
     # when multiple devices are connected, the device names are separated with ORS.
-    nmcli device | awk 'BEGIN { ORS = "" } {if ($3 == "connected") { print $2" " }}'
+    # dev=$(nmcli device | awk 'BEGIN { ORS = "" } {if ($3 == "connected") { print $2" " }}')
+    echo "[${dev}]"
 }
 
 print_fcitx_status() {
     # print "fcitx" if fcitx is installed and active.
-    test $(command -v fcitx-remote) && test $(fcitx-remote) -eq 2 && echo "fcitx "
+    test $(command -v fcitx-remote) && test $(fcitx-remote) -eq 2 && echo "[fcitx]"
 }
 
 print_battery_status() {
     # print remaining battery in percentage
     battery_info_files=$(ls /sys/class/power_supply/*/capacity | grep "BAT")
-    test ${battery_info_files} && cat ${battery_info_files} | awk '{ sum += $1 } END { print sum"% " }'
+    test ${battery_info_files} && cat ${battery_info_files} | awk '{ sum += $1 } END { print "["sum"%]" }'
+}
+
+print_load_avg() {
+    # print the load average during the last minite
+    cat /proc/loadavg | sed -e 's/ .*//'
 }
 
 print_datetime() {
     # date
-    date "+%a %d %b - %H:%M"
+    date "+[%a %d/%m %H:%M]"
 }
 
 while true
 do
-    xsetroot -name " $(print_fcitx_status)$(print_network_device)$(print_battery_status) $(print_datetime)"
+    xsetroot -name " $(print_load_avg) $(print_fcitx_status)$(print_network_device)$(print_battery_status) $(print_datetime)"
     sleep 0.5
 done
