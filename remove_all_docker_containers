@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 containers=$(sudo docker ps -a -q)
 if [[ ${containers} != "" ]]; then
