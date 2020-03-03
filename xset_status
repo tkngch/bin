@@ -9,11 +9,11 @@
 
 print_network_device() {
     # print the connected device type.
-    # show only the default, even when multiple devices are connected.
+    # show only the default top, even when multiple devices are connected.
     dev=$(ip route | grep default | sed -e 's/^.*dev //' -e 's/ .*//' | head -n 1)
     # when multiple devices are connected, the device names are separated with ORS.
     # dev=$(nmcli device | awk 'BEGIN { ORS = "" } {if ($3 == "connected") { print $2" " }}')
-    echo "[${dev}]"
+    test "${dev}" && echo "[${dev}]"
 }
 
 print_fcitx_status() {
@@ -23,7 +23,7 @@ print_fcitx_status() {
 
 print_battery_status() {
     # print remaining battery in percentage
-    battery_info_files="$(ls /sys/class/power_supply/*/capacity | grep 'BAT')"
+    battery_info_files="$(ls /sys/class/power_supply/*BAT*/capacity)"
     test "${battery_info_files}" && awk '{ sum += $1 } END { print "["sum"%]" }' "${battery_info_files}"
 }
 
@@ -34,7 +34,7 @@ print_load_avg() {
 
 print_datetime() {
     # date
-    date "+[%a %d/%m %H:%M]"
+    date "+%a%d%b/%H:%M"
 }
 
 while true
