@@ -1,0 +1,4 @@
+#!/bin/sh
+# Open Brave within the sandbox.
+
+"${HOME}/bin/sandbox" /usr/bin/brave --no-sandbox 2> /dev/null &
