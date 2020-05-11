@@ -1,5 +1,4 @@
 #!/bin/sh
 # Open Brave within the sandbox.
 
-# "${HOME}/bin/sandbox" /usr/bin/brave --no-sandbox http://localhost:8080/?password=bfLKgd97g 2> /dev/null &
 "${HOME}/bin/sandbox" /usr/bin/brave --no-sandbox --disable-notifications --disable-features=TranslateUI http://localhost:33875 2> /dev/null &
