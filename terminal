@@ -1,15 +1,19 @@
 #!/bin/sh
 # Open terminal emulator.
-#
-# If a symlink "st" is in ${HOME}/bin, this "st" is executed.
-# Otherwise, /usr/bin/urxvt is called.
 
-if [ -L ${HOME}/bin/st ]; then
+if command -v alacritty > /dev/null; then
+    alacritty --command zsh -c 'tmux new'
+elif command -v xterm > /dev/null; then
+    xrdb -merge "${HOME}/.Xresources"
+    xterm -e tmux new
+elif [ -L "${HOME}/bin/st" ]; then
     # suckless simple terminal
-    ${HOME}/bin/st 2> /dev/null &
+    "${HOME}/bin/st" 2> /dev/null &
+elif command -v xfce4-terminal > /dev/null; then
+    xfce4-terminal
 else
     # URXVT
-    xrdb -merge ${HOME}/.Xresources
+    xrdb -merge "${HOME}/.Xresources"
     /usr/bin/urxvt 2> /dev/null &
 fi
 
