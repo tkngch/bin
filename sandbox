@@ -14,11 +14,11 @@ chooseName () {
 
     candidate=${dir_prefix}${1}
 
-    if [ ! -d ${sandboxes_dir}/${candidate} ]; then
+    if [ ! -d "${sandboxes_dir}/${candidate}" ]; then
         sandbox_name=${candidate}
         return 0
     else
-        chooseName `expr ${1} + 1`
+        chooseName $(( "${1}" + 1 ))
     fi
 
 }
@@ -28,7 +28,7 @@ chooseName () {
 
 chooseName 0
 sandbox_dir=${sandboxes_dir}/${sandbox_name}
-mkdir -p ${sandbox_dir}
+mkdir -p "${sandbox_dir}"
 
 echo "Running ${dir_prefix}"
 echo "Sandbox name is ${sandbox_name}"
@@ -50,7 +50,7 @@ echo ""
 #    Turn off Firejail's output.
 
 firejail --caps.drop=all --disable-mnt --noroot --private-tmp --quiet \
-    --name=${sandbox_name} --private=${sandbox_dir} --whitelist=~/.config/fcitx \
+    --name="${sandbox_name}" --private="${sandbox_dir}" --whitelist=~/.config/fcitx \
     --seccomp --protocol=unix,inet,inet6,netlink ${cmd}
 
-trap "rm -rf ${sandbox_dir}" EXIT
+trap 'rm -rf "${sandbox_dir}"' EXIT

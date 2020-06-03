@@ -1,7 +1,6 @@
 #!/usr/bin/sh
 
-target=${HOME}/lib/python
+target="${HOME}/lib/python"
 
-rm -rf ${target}/__pycache__
-pip uninstall --target ${target} "$1"
-rm -rf ${target}/__pycache__
+pip uninstall "$1"
+rm -rf "${target}/__pycache__"
