@@ -4,9 +4,6 @@ cmd=${*}
 # remove forward slash from the first argument
 dir_prefix=${1##/*/}
 sandboxes_dir=${HOME}/tmp/sandboxes
-# if [ ! -d ${sandbox_dir} ]; then
-#     mkdir -p sandbox_dir
-# fi
 
 sandbox_name=''
 
@@ -32,7 +29,6 @@ mkdir -p "${sandbox_dir}"
 
 echo "Running ${dir_prefix}"
 echo "Sandbox name is ${sandbox_name}"
-echo ""
 
 # --caps.drop=all
 #    Drop all capabilities for the processes running in the sandbox.  This option is recommended for  running  GUI  programs  or  any other  program  that  doesn't  require root privileges.
