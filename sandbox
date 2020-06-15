@@ -29,6 +29,7 @@ mkdir -p "${sandbox_dir}"
 
 echo "Running ${dir_prefix}"
 echo "Sandbox name is ${sandbox_name}"
+sleep 0.1  # Wait for the above `echo`s to finish printing.
 
 # --caps.drop=all
 #    Drop all capabilities for the processes running in the sandbox.  This option is recommended for  running  GUI  programs  or  any other  program  that  doesn't  require root privileges.
